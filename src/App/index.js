@@ -87,7 +87,10 @@ class App extends Component {
   onDismiss(id) {
     const isNotId = item => item.id !== id;
     const updatedList = this.state.list.filter(isNotId);
-    this.setState({ list: updatedList });
+    this.setState({
+      list: updatedList,
+      current_index: this.state.current_index - 1
+    });
   }
 
   onEdit(id) {
@@ -105,17 +108,23 @@ class App extends Component {
 
   /* Add Employee Form Starts Here */
   getEmployeeName(event) {
-    this.setState({ EmployeeName: event.target.value });
+    this.setState({
+      EmployeeName: event.target.value
+    });
     console.log(this.state.EmployeeName);
   }
 
   getEmployeeSalary(event) {
-    this.setState({ EmployeeSalary: event.target.value });
+    this.setState({
+      EmployeeSalary: event.target.value
+    });
     console.log(this.state.EmployeeSalary);
   }
 
   getEmployeeAge(event) {
-    this.setState({ EmployeeAge: event.target.value });
+    this.setState({
+      EmployeeAge: event.target.value
+    });
     console.log(this.state.EmployeeAge);
   }
 
@@ -148,9 +157,9 @@ class App extends Component {
       swal("غلط اندراج", " نام خالی مت چھوڑے  ", "error");
       this.setState({ EmployeeName: "" });
     } else if (
-      EmployeeSalary !== "" ||
-      EmployeeSalary < 1 ||
-      EmployeeSalary > 10000
+      EmployeeSalary === "" ||
+      EmployeeSalary <= 1 ||
+      EmployeeSalary >= 10000
     ) {
       swal("غلط اندراج", "تنخواہ کی حد 10000 ہے", "error");
       this.setState({ EmployeeSalary: "" });
@@ -181,7 +190,16 @@ class App extends Component {
   }
 
   cancel(event) {
-    this.setState({ current_index: list.length });
+    // this.setState({ current_index: list.length });
+    console.log(list.length);
+    this.setState({
+      list,
+      current_index: list.length,
+      EmployeeAge: "",
+      EmployeeName: "",
+      EmployeeSalary: ""
+    });
+    console.log(this.state.current_index);
     event.preventDefault();
   }
   /* Add Employee Form Ends Here */
