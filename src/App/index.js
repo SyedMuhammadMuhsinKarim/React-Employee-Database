@@ -6,6 +6,9 @@ import EmployeeAdd from "../Components/AddEmployee";
 import SearchEmployee from "../Components/SearchEmployee";
 import EmployeeTable from "../Components/EmployeeTable";
 import list from "../Const/List/";
+import { Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
+import PopUpModal from "./../Components/Modal/index";
 
 const isSearched = searchTerm => item => {
   // console.log(item);
@@ -26,7 +29,8 @@ class App extends Component {
       EmployeeName: "",
       EmployeeSalary: "",
       EmployeeAge: "",
-      searchTerm: ""
+      searchTerm: "",
+      ModalShow: false
     };
 
     this.getEmail = this.getEmail.bind(this);
@@ -41,6 +45,8 @@ class App extends Component {
     this.cancel = this.cancel.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.onEdit = this.onEdit.bind(this);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   /* Login Form Area Start*/
@@ -95,13 +101,13 @@ class App extends Component {
 
   onEdit(id) {
     const { list } = this.state;
-    console.log("Mien chal raha hoon");
     this.setState({
       EmployeeName: list[id].employee_name,
       EmployeeSalary: list[id].employee_salary,
       EmployeeAge: list[id].employee_age,
       current_index: id
     });
+    this.handleShow();
     console.log(this.state.current_index);
   }
   /* Employe DataBase Control Ends Here*/
@@ -150,6 +156,7 @@ class App extends Component {
         employee_age: EmployeeAge
       });
       this.setState({ list });
+      this.handleClose();
     } else if (!EmployeeAge || EmployeeAge < 18 || EmployeeAge > 60) {
       swal("غلط اندراج", " عمر کی حد 18 سے 60 سال تک ہے", "error");
       this.setState({ EmployeeAge: "" });
@@ -200,6 +207,7 @@ class App extends Component {
       EmployeeSalary: ""
     });
     console.log(this.state.current_index);
+    this.handleClose();
     event.preventDefault();
   }
   /* Add Employee Form Ends Here */
@@ -210,6 +218,15 @@ class App extends Component {
       searchTerm: event.target.value
     });
   /*Search Component Form Control End Here*/
+
+  handleClose() {
+    this.setState({ ModalShow: false });
+  }
+
+  handleShow() {
+    this.setState({ ModalShow: true });
+  }
+
   /*Render Function */
   render() {
     const {
@@ -219,7 +236,8 @@ class App extends Component {
       EmployeeName,
       EmployeeAge,
       EmployeeSalary,
-      current_index
+      current_index,
+      ModalShow
     } = this.state;
     return (
       <div className="App">
@@ -241,19 +259,55 @@ class App extends Component {
         {login && (
           <div>
             <p>ملازمین کا ڈیٹابیس</p>
-            <EmployeeAdd
-              onChangeName={this.getEmployeeName}
-              EmployeeNameValue={EmployeeName}
-              onChangeSalary={this.getEmployeeSalary}
-              EmployeeSalaryValue={EmployeeSalary}
+            <Button variant="primary" onClick={this.handleShow}>
+              ملازم کو شامل کیجیے
+            </Button>
+
+            <Modal show={ModalShow} onHide={this.handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>ملازمین کااندراج</Modal.Title>
+              </Modal.Header>
+
+              <Modal.Body>
+                <EmployeeAdd
+                  show={this.state.show}
+                  handleClose={this.handleClose}
+                  onChangeAge={this.getEmployeeAge}
+                  onChangeName={this.getEmployeeName}
+                  onChangeSalary={this.getEmployeeSalary}
+                  EmployeeNameValue={EmployeeName}
+                  EmployeeSalaryValue={EmployeeSalary}
+                  EmployeeAgeValue={EmployeeAge}
+                  currentIndex={current_index}
+                  listLength={list.length}
+                  addItem={this.add}
+                  updateItem={this.update}
+                  cancelItem={this.cancel}
+                />
+              </Modal.Body>
+
+              <Modal.Footer>
+                <Button variant="secondary" onClick={this.handleClose}>
+                  بند کریں
+                </Button>
+              </Modal.Footer>
+            </Modal>
+
+            {/* <PopUpModal
+              show={this.state.show}
+              handleClose={this.handleClose}
               onChangeAge={this.getEmployeeAge}
+              onChangeName={this.getEmployeeName}
+              onChangeSalary={this.getEmployeeSalary}
+              EmployeeNameValue={EmployeeName}
+              EmployeeSalaryValue={EmployeeSalary}
               EmployeeAgeValue={EmployeeAge}
               currentIndex={current_index}
-              listLength={list.length}
+              listLength={list.length}o
               addItem={this.add}
               updateItem={this.update}
               cancelItem={this.cancel}
-            />
+            /> */}
 
             <SearchEmployee onSearch={this.onSearch} searchTerm={searchTerm} />
 
