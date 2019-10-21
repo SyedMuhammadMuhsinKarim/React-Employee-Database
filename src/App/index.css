@@ -32,8 +32,9 @@
 }
 
 * {
-  font-family: "NafeesRegular";
-  font-weight: normal;
+  /* font-family: "NafeesRegular"; */
+  font-family: "Fredoka One", cursive;
+  font-weight: 14px;
   font-style: normal;
 }
 

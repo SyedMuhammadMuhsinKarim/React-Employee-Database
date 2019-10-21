@@ -5,7 +5,7 @@ const SearchEmployee = ({ onSearch, searchTerm }) => (
     <form>
       <input
         type="text"
-        placeholder="ملازم کو تلاش کریں"
+        placeholder="Searching Here..."
         onChange={onSearch}
         value={searchTerm}
         className="form-control"
