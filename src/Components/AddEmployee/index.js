@@ -19,27 +19,29 @@ const EmployeeAdd = ({
         <input
           className="form-control"
           type="text"
-          placeholder="ملازم کا نام"
+          placeholder="Employee Name"
           onChange={onChangeName}
           value={EmployeeNameValue}
         />
       </div>
+
       <div className="form-group">
         <input
           className="form-control"
           type="number"
-          placeholder="ملازم کی تنخواہ"
-          onChange={onChangeSalary}
-          value={EmployeeSalaryValue}
-        />
-      </div>
-      <div className="form-group">
-        <input
-          className="form-control"
-          type="number"
-          placeholder="ملازم کی عمر"
+          placeholder="Employee Age"
           onChange={onChangeAge}
           value={EmployeeAgeValue}
+        />
+      </div>
+
+      <div className="form-group">
+        <input
+          className="form-control"
+          type="number"
+          placeholder="Employee Salary"
+          onChange={onChangeSalary}
+          value={EmployeeSalaryValue}
         />
       </div>
       {currentIndex === listLength ? (
@@ -48,7 +50,7 @@ const EmployeeAdd = ({
             className="form-control btn btn-info"
             type="submit"
             onClick={addItem}
-            value="شامل کریں"
+            value="Submit"
           />
         </div>
       ) : (
@@ -58,7 +60,7 @@ const EmployeeAdd = ({
               className="form-control btn btn-warning"
               type="submit"
               onClick={updateItem}
-              value="اپڈیٹ"
+              value="Update"
             />
           </div>
           <div className="form-group">
@@ -66,7 +68,7 @@ const EmployeeAdd = ({
               className="form-control btn btn-danger"
               type="submit"
               onClick={cancelItem}
-              value="منسوخ"
+              value="Cancel"
             />
           </div>
         </div>

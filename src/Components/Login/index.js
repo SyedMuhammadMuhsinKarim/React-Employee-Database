@@ -9,7 +9,7 @@ const Login = ({ onClick, onChangeEmail, onChangePass }) => {
           <input
             className="form-control"
             type="email"
-            placeholder="ای میل لکھیں"
+            placeholder="Email"
             onChange={onChangeEmail}
           />
         </div>
@@ -17,7 +17,7 @@ const Login = ({ onClick, onChangeEmail, onChangePass }) => {
           <input
             className="form-control"
             type="password"
-            placeholder="پاسورڈ لکھیں"
+            placeholder="Password"
             onChange={onChangePass}
           />
         </div>
@@ -26,7 +26,7 @@ const Login = ({ onClick, onChangeEmail, onChangePass }) => {
             className="btn btn-primary btn-lg btn-block"
             type="submit"
             onClick={onClick}
-            value="لاگ ان کریں"
+            value="Login"
           />
         </div>
       </form>

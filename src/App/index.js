@@ -8,23 +8,22 @@ import EmployeeTable from "../Components/EmployeeTable";
 import list from "../Const/List/";
 import { Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
-import PopUpModal from "./../Components/Modal/index";
+// import PopUpModal from "./../Components/Modal/index";
 
 const isSearched = searchTerm => item => {
   // console.log(item);
   return item.employee_name.toLowerCase().includes(searchTerm.toLowerCase());
 };
+
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       list,
-      // Login
       email: "",
       password: "",
       login: false,
-      // Login End
       current_index: list.length,
       EmployeeName: "",
       EmployeeSalary: "",
@@ -60,28 +59,16 @@ class App extends Component {
 
   onLogin(event) {
     if (!this.state.email && !this.state.password) {
-      swal(
-        "آپکا اندراج مکمل نہیں",
-        " آپ نے پاسورڈ یاای میل نہیں لکھا تمام اندراج مکمل کریں ",
-        "error"
-      );
+      swal("Something Wrong!", "Your Username/Password is Wrong", "error");
     } else {
       if (
         this.state.email === "admin@gmail.com" &&
         this.state.password === "admin"
       ) {
         this.setState({ login: true });
-        swal(
-          "!لاگ ان کامیاب ہوگیا",
-          " خوشامدید! آپ کو لاگ ان کردیا گیا ہے ",
-          "success"
-        );
+        swal("Welcome", "You are successfully Login", "success");
       } else {
-        swal(
-          "آپ لاگ ان نہیں کرسکتے",
-          "آپ ہمارے ڈیٹا بیس میں نہیں ہیں",
-          "error"
-        );
+        swal("Something Went Wrong", "You are not in our database", "error");
       }
     }
     event.preventDefault();
@@ -158,17 +145,17 @@ class App extends Component {
       this.setState({ list });
       this.handleClose();
     } else if (!EmployeeAge || EmployeeAge < 18 || EmployeeAge > 60) {
-      swal("غلط اندراج", " عمر کی حد 18 سے 60 سال تک ہے", "error");
+      swal("Something Went Wrong", "Age limit is 18 to 60", "error");
       this.setState({ EmployeeAge: "" });
     } else if (EmployeeName === "" || EmployeeName !== "") {
-      swal("غلط اندراج", " نام خالی مت چھوڑے  ", "error");
+      swal("Something Went Wrong", " Your Name is Not Provided ", "error");
       this.setState({ EmployeeName: "" });
     } else if (
       EmployeeSalary === "" ||
       EmployeeSalary <= 1 ||
       EmployeeSalary >= 10000
     ) {
-      swal("غلط اندراج", "تنخواہ کی حد 10000 ہے", "error");
+      swal("Something Went Wrong", "Salary Range is 1 - 10K", "error");
       this.setState({ EmployeeSalary: "" });
     }
     event.preventDefault();
@@ -193,6 +180,7 @@ class App extends Component {
     };
     this.setState({ list, current_index: list.length });
     this.setState({ EmployeeAge: "", EmployeeName: "", EmployeeSalary: "" });
+    this.handleClose();
     event.preventDefault();
   }
 
@@ -258,14 +246,14 @@ class App extends Component {
 
         {login && (
           <div>
-            <p>ملازمین کا ڈیٹابیس</p>
+            <p>Employee DataBase</p>
             <Button variant="primary" onClick={this.handleShow}>
-              ملازم کو شامل کیجیے
+              Add Employees Data
             </Button>
 
             <Modal show={ModalShow} onHide={this.handleClose}>
               <Modal.Header closeButton>
-                <Modal.Title>ملازمین کااندراج</Modal.Title>
+                <Modal.Title>Entry Form</Modal.Title>
               </Modal.Header>
 
               <Modal.Body>

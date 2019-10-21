@@ -5,12 +5,12 @@ const EmployeeTable = ({ pattern, onEdit, onDismiss, isSearched, list }) => (
   <table className="mx-auto responsive table">
     <tbody>
       <tr>
-        <th scope="col">اندراج</th>
-        <th scope="col">نام</th>
-        <th scope="col">تنخواہ</th>
-        <th scope="col">عمر</th>
-        <th scope="col">ایڈیٹ</th>
-        <th scope="col">مٹاو</th>
+        <th scope="col">S#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Salary</th>
+        <th scope="col">Age</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Remove</th>
       </tr>
       {list.filter(isSearched(pattern)).map((item, index) => {
         return (
@@ -22,7 +22,7 @@ const EmployeeTable = ({ pattern, onEdit, onDismiss, isSearched, list }) => (
             <td>{item.employee_age}</td>
             <td>
               <Button className="btn btn-warning" onClick={() => onEdit(index)}>
-                ایڈیٹ کریں
+                Edit
               </Button>
             </td>
             <td>
@@ -30,7 +30,7 @@ const EmployeeTable = ({ pattern, onEdit, onDismiss, isSearched, list }) => (
                 className="btn btn-danger"
                 onClick={() => onDismiss(item.id)}
               >
-                مٹائیں
+                Remove
               </Button>
             </td>
           </tr>
